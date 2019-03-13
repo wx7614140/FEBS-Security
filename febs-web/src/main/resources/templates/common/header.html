@@ -14,12 +14,19 @@
         </div>
     </div>
     <div class="header__logo hidden-sm-down">
-        <h1><a href="index.html" data-th-href="@{index}">FEBS 权限管理系统</a></h1>
+        <h1><a href="index.html" data-th-href="@{index}" th:text="#{febs.auth.system}">FEBS 权限管理系统</a></h1>
     </div>
     <ul class="top-nav">
         <li class="dropdown hidden-xs-down">
             <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
+            	<div class="dropdown-item theme-switch">
+            			语言切换
+            			 <div class="btn-group btn-group--colors mt-2" >
+            			 	<a th:href="@{index(lang='zh_CN')}">简体中文</a>
+            			 	<a th:href="@{index(lang='en_US')}">English</a>
+            			 </div>
+            	</div>
                 <div class="dropdown-item theme-switch">
                     	主题切换
                     <div class="btn-group btn-group--colors mt-2" data-toggle="buttons">
