@@ -14,8 +14,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.scheduling.annotation.Async;
@@ -39,8 +37,6 @@ import java.util.*;
 @Component
 public class LogAspect {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
-
     @Autowired
     private FebsProperies febsProperies;
 
@@ -56,15 +52,10 @@ public class LogAspect {
     }
 
     @Around("pointcut()")
-    public Object around(ProceedingJoinPoint point) throws IOException {
-        Object result = null;
+    public Object around(ProceedingJoinPoint point) throws Throwable {
+        Object result;
         long beginTime = System.currentTimeMillis();
-        try {
-            // 执行方法
-            result = point.proceed();
-        } catch (Throwable e) {
-            log.error(e.getMessage());
-        }
+        result = point.proceed();
         // 执行时长(毫秒)
         // 获取request
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
@@ -118,7 +109,7 @@ public class LogAspect {
         this.logService.save(log);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private StringBuilder handleParams(StringBuilder params, Object[] args, List paramNames) throws IOException {
         for (int i = 0; i < args.length; i++) {
             if (args[i] instanceof Map) {
