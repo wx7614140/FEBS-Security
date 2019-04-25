@@ -30,7 +30,6 @@ public class LocaleConfig implements WebMvcConfigurer {
         public Locale resolveLocale(HttpServletRequest request) {
         	
             String language = request.getParameter("lang");
-            System.out.println(language);
             Locale locale = Locale.getDefault();
             if(!StringUtils.isEmpty(language)){
                 String[] split = language.split("_");
