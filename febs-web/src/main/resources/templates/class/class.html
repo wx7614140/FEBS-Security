@@ -1,4 +1,4 @@
-<div data-th-include="system/dept/deptAdd"></div>
+<div data-th-include="class/classAdd" xmlns:sec="http://www.w3.org/1999/xhtml"></div>
 <div class="card">
     <div class="card-block">
         <div class="table-responsive">
@@ -9,25 +9,25 @@
                     <div class="dropdown actions__item">
                         <i data-toggle="dropdown" class="zmdi zmdi-download"></i>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <a href="javascript:void(0)" class="dropdown-item" data-table-action="excel"  onclick="exportDeptExcel()">
+                            <a href="javascript:void(0)" class="dropdown-item" data-table-action="excel"  onclick="exportClassExcel()">
 		                    	Excel (.xlsx)
 		                	</a>
-                            <a href="javascript:void(0)" class="dropdown-item" data-table-action="csv"  onclick="exportDeptCsv()">
+                            <a href="javascript:void(0)" class="dropdown-item" data-table-action="csv"  onclick="exportClassCsv()">
 		                    	CSV (.csv)
 		                	</a>
                         </ul>
                     </div>
-                    <div class="dropdown actions__item" sec:authorize="hasAnyAuthority('dept:add','dept:delete','dept:update')">
+                    <div class="dropdown actions__item" sec:authorize="hasAnyAuthority('class:add','class:delete','class:update')">
                         <i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#dept-add" sec:authorize="hasAuthority('dept:add')">新增部门</a>
-                            <a href="javascript:void(0)" class="dropdown-item" onclick="updateDept()" sec:authorize="hasAuthority('dept:update')">修改部门</a>
-                            <a href="javascript:void(0)" class="dropdown-item" onclick="deleteDepts();" sec:authorize="hasAuthority('dept:delete')">删除部门</a>
+                            <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#class-add" sec:authorize="hasAuthority('class:add')">新增班级</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="updateClass()" sec:authorize="hasAuthority('class:update')">修改班级</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="deleteClasses();" sec:authorize="hasAuthority('class:delete')">删除班级</a>
                         </div>
                     </div>
                 </div>
                 <div id="data-table_filter" class="dataTables_filter">
-                    <form class="dept-table-form">
+                    <form class="class-table-form">
                         <div class="row">
                             <div class="col-sm-3">
                                 <div class="input-group">
@@ -35,7 +35,7 @@
 					               	名称：
 					            </span>
                                     <div class="form-group">
-                                        <input type="text" name="deptName" class="form-control">
+                                        <input type="text" name="className" class="form-control">
                                         <i class="form-group__bar"></i>
                                     </div>
                                 </div>
@@ -43,10 +43,10 @@
                         </div>
                     </form>
                 </div>
-                <table id="deptTable" data-mobile-responsive="true" class="mb-bootstrap-table"></table>
+                <table id="classTable" data-mobile-responsive="true" class="mb-bootstrap-table"></table>
             </div>
         </div>
     </div>
 </div>
-<script data-th-src="@{js/app/system/dept/dept.js}"></script>
-<script data-th-src="@{js/app/system/dept/deptEdit.js}"></script>
+<script data-th-src="@{js/app/class/class.js}"></script>
+<script data-th-src="@{js/app/class/classEdit.js}"></script>
