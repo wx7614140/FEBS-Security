@@ -1,46 +1,57 @@
 $(function() {
-    initTreeTable();
-});
-
-function initTreeTable() {
+    var $classTableForm=$(".class-table-form")
     var setting = {
-        id: 'classId',
-        code: 'classId',
         url: ctx + 'class/list',
-        expandAll: true,
-        expandColumn: "2",
-        ajaxParams: {
-            className: $(".class-table-form").find("input[name='className']").val().trim()
+        pageNum: 1,
+        pageSize: 10,
+        pagination: true,
+        sortable: true,
+        sortOrder: "asc",
+        sidePagination: "server",
+        uniqueId: "classId",
+        queryParams: function (params) {
+            return {
+                pageSize: params.limit||10,
+                pageNum: params.offset / params.limit + 1,
+                className: $classTableForm.find("input[name='className']").val().trim(),
+                oderCloumn: params.sort,      //排序列名
+                asc: params.order=='asc' //排位命令（desc，asc）
+                /* gradeId: $classTableForm.find("select[name='gradeId']").val(),
+                 status: $classTableForm.find("select[name='status']").val()*/
+            };
         },
         columns: [{
-                field: 'selectItem',
-                checkbox: true
-            },
+            checkbox: true
+        },
             {
                 title: '编号',
                 field: 'classId',
-                width: '50px'
+                width: '50px',
+                sortable: true
             },
             {
                 title: '名称',
-                field: 'className'
+                field: 'className',
+                sortable: true
             },
             {
                 title: '年级',
-                field: 'gradeId'
+                field: 'gradeId',
+                sortable: true
             },
             {
                 title: '创建时间',
-                field: 'createTime'
+                field: 'createTime',
+                sortable: true
             }
         ]
     };
 
-    $MB.initTreeTable('classTable', setting);
-}
+    $MB.initTable('classTable', setting);
+});
 
 function search() {
-    initTreeTable();
+    $MB.refreshTable('classTable');
 }
 
 function refresh() {
@@ -49,7 +60,7 @@ function refresh() {
 }
 
 function deleteClasses() {
-    var ids = $("#classTable").bootstrapTreeTable("getSelections");
+    var ids = $("#classTable").bootstrapTable("getSelections");
     var ids_arr = "";
     if (!ids.length) {
         $MB.n_warning("请勾选需要删除的班级！");

@@ -1,5 +1,5 @@
 function updateClass() {
-    var selected = $("#classTable").bootstrapTreeTable("getSelections");
+    var selected = $("#classTable").bootstrapTable("getSelections");
     var selected_length = selected.length;
     if (!selected_length) {
         $MB.n_warning('请勾选需要修改的班级！');
