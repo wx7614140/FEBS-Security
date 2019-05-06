@@ -1,6 +1,7 @@
-package cc.mrbird.domain;
+package cc.mrbird.web.domain;
 
 import cc.mrbird.common.annotation.ExportConfig;
+import cc.mrbird.web.domain.BaseDomain;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "t_class")
-public class Class implements Serializable {
+public class Class extends BaseDomain implements Serializable {
     @Id
     @GeneratedValue(generator = "JDBC")
     @Column(name = "CLASS_ID")
@@ -25,7 +26,8 @@ public class Class implements Serializable {
     @ExportConfig(value = "班级名称")
     private String className;
 
-    private Long orderNum;
+    //@Column(name = "ORDER_NUM",nullable=true,updatable=false)
+    private Integer state;
 
     @Column(name = "CREATE_TIME")
     @ExportConfig(value = "创建时间", convert = "c:cc.mrbird.common.utils.poi.convert.TimeConvert")
@@ -55,12 +57,12 @@ public class Class implements Serializable {
         this.className = className;
     }
 
-    public Long getOrderNum() {
-        return orderNum;
+    public Integer getState() {
+        return state;
     }
 
-    public void setOrderNum(Long orderNum) {
-        this.orderNum = orderNum;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public Date getCreateTime() {
@@ -70,4 +72,5 @@ public class Class implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
 }

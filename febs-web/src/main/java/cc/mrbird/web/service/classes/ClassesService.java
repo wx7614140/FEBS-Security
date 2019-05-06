@@ -1,21 +1,21 @@
 package cc.mrbird.web.service.classes;
 import cc.mrbird.common.service.IService;
-import cc.mrbird.domain.Class;
+import cc.mrbird.web.domain.Class;
 
 import java.util.List;
 
-public interface ClassesService extends IService<cc.mrbird.domain.Class> {
+public interface ClassesService extends IService<Class> {
 
 
-	List<cc.mrbird.domain.Class> findAllClasses(cc.mrbird.domain.Class clazz);
+	List<Class> findAllClasses(Class clazz);
+	List<Class> findClasses(Class clazz);
+	Class findByName(String className);
 
-	cc.mrbird.domain.Class findByName(String className);
-
-	cc.mrbird.domain.Class findById(Long classId);
+	Class findById(Long classId);
 	
-	void addClass(cc.mrbird.domain.Class clazz);
+	void addClass(Class clazz);
 	
-	void updateClass(cc.mrbird.domain.Class clazz);
+	void updateClass(Class clazz);
 
 	void deleteClasses(String clazz);
 }

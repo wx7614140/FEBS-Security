@@ -1,8 +1,8 @@
 package cc.mrbird.web.service.classes.impl;
 
 import cc.mrbird.common.service.impl.BaseService;
-import cc.mrbird.domain.Class;
-import cc.mrbird.system.domain.Dept;
+import cc.mrbird.web.domain.Class;
+import cc.mrbird.web.dao.ClassesMapper;
 import cc.mrbird.web.service.classes.ClassesService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -23,7 +23,8 @@ import java.util.List;
 public class ClassesServiceImpl extends BaseService<Class> implements ClassesService {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
-
+	@Autowired
+	private ClassesMapper classesMapper;
 	@Override
 	public List<Class> findAllClasses(Class clazz) {
 		try {
@@ -34,13 +35,27 @@ public class ClassesServiceImpl extends BaseService<Class> implements ClassesSer
 			if (clazz.getGradeId()!=null) {
 				example.createCriteria().andCondition("grade_id=", clazz.getGradeId());
 			}
-			example.setOrderByClause("class_id");
+			if (StringUtils.isNotBlank(clazz.getOderCloumn())) {
+				example.setOrderByClause(clazz.getOderCloumn()+clazz.isAsc()==null?"":clazz.isAsc()?" ASC":" DESC");
+			}else {
+				example.setOrderByClause("class_id");
+			}
 			return this.selectByExample(example);
 		} catch (Exception e) {
 			log.error("获取班级列表失败", e);
 			return new ArrayList<>();
 		}
 
+	}
+
+	@Override
+	public List<Class> findClasses(Class clazz) {
+		try {
+			return this.classesMapper.findClasses(clazz);
+		} catch (Exception e) {
+			log.error("error", e);
+			return new ArrayList<>();
+		}
 	}
 
 	@Override

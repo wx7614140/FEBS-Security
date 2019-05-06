@@ -1,8 +1,11 @@
 package cc.mrbird.web.controller.classes;
 
 import cc.mrbird.common.annotation.Log;
+import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.utils.FileUtils;
+import cc.mrbird.web.controller.base.BaseController;
+import cc.mrbird.web.domain.Class;
 import cc.mrbird.web.service.classes.ClassesService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -10,13 +13,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
 
 @Controller
-public class ClassesController {
+public class ClassesController extends BaseController {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -25,7 +30,7 @@ public class ClassesController {
     @Log("获取班级信息")
     @RequestMapping("class")
     @PreAuthorize("hasAuthority('class:list')")
-    public String index() {
+    public String index(Model model) {
         return "class/class";
     }
 
@@ -33,24 +38,19 @@ public class ClassesController {
     @ResponseBody
     public ResponseBo getClass(Long classId) {
         try {
-            cc.mrbird.domain.Class clazz = this.classesService.findById(classId);
+            Class clazz = this.classesService.findById(classId);
             return ResponseBo.ok(clazz);
         } catch (Exception e) {
             log.error("获取班级信息失败", e);
             return ResponseBo.error("获取班级信息失败，请联系网站管理员！");
         }
     }
-
+    @Log("获取班级信息")
     @RequestMapping("class/list")
     @PreAuthorize("hasAuthority('class:list')")
     @ResponseBody
-    public List<cc.mrbird.domain.Class> deptList(cc.mrbird.domain.Class clazz) {
-        try {
-            return this.classesService.findAllClasses(clazz);
-        } catch (Exception e) {
-            log.error("获取班级列表失败", e);
-            return new ArrayList<>();
-        }
+    public Map<String, Object> classList(QueryRequest request, cc.mrbird.web.domain.Class clazz) {
+            return super.selectByPageNumSize(request, () -> this.classesService.findClasses(clazz));
     }
 
     @RequestMapping("class/checkClassName")
@@ -59,7 +59,7 @@ public class ClassesController {
         if (StringUtils.isNotBlank(oldClassName) && StringUtils.equalsIgnoreCase(className, oldClassName)) {
             return true;
         }
-        cc.mrbird.domain.Class result = this.classesService.findByName(className);
+        Class result = this.classesService.findByName(className);
         return result == null;
     }
 
@@ -67,7 +67,7 @@ public class ClassesController {
     @PreAuthorize("hasAuthority('class:add')")
     @RequestMapping("class/add")
     @ResponseBody
-    public ResponseBo addRole(cc.mrbird.domain.Class clazz) {
+    public ResponseBo addRole(Class clazz) {
         try {
             this.classesService.addClass(clazz);
             return ResponseBo.ok("新增班级成功！");
@@ -95,7 +95,7 @@ public class ClassesController {
     @PreAuthorize("hasAuthority('class:update')")
     @RequestMapping("class/update")
     @ResponseBody
-    public ResponseBo updateClass(cc.mrbird.domain.Class clazz) {
+    public ResponseBo updateClass(Class clazz) {
         try {
             this.classesService.updateClass(clazz);
             return ResponseBo.ok("修改班级成功！");
@@ -107,10 +107,10 @@ public class ClassesController {
 
     @RequestMapping("class/excel")
     @ResponseBody
-    public ResponseBo classExcel(cc.mrbird.domain.Class clazz) {
+    public ResponseBo classExcel(Class clazz) {
         try {
-            List<cc.mrbird.domain.Class> list = this.classesService.findAllClasses(clazz);
-            return FileUtils.createExcelByPOIKit("班级表", list, cc.mrbird.domain.Class.class);
+            List<Class> list = this.classesService.findAllClasses(clazz);
+            return FileUtils.createExcelByPOIKit("班级表", list, Class.class);
         } catch (Exception e) {
             log.error("导出班级信息Excel失败", e);
             return ResponseBo.error("导出Excel失败，请联系网站管理员！");
@@ -119,10 +119,10 @@ public class ClassesController {
 
     @RequestMapping("class/csv")
     @ResponseBody
-    public ResponseBo classCsv(cc.mrbird.domain.Class clazz) {
+    public ResponseBo classCsv(Class clazz) {
         try {
-            List<cc.mrbird.domain.Class> list = this.classesService.findAllClasses(clazz);
-            return FileUtils.createCsv("班级表", list, cc.mrbird.domain.Class.class);
+            List<Class> list = this.classesService.findAllClasses(clazz);
+            return FileUtils.createCsv("班级表", list, Class.class);
         } catch (Exception e) {
             log.error("获取班级信息Csv失败", e);
             return ResponseBo.error("导出Csv失败，请联系网站管理员！");

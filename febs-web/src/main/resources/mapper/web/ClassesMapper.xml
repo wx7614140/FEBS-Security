@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.web.dao.ClassesMapper">
+  <resultMap id="BaseResultMap" type="cc.mrbird.web.domain.Class">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="CLASS_ID" jdbcType="INTEGER" property="classId" />
+    <result column="GRADE_ID" jdbcType="INTEGER" property="gradeId" />
+    <result column="CLASS_NAME" jdbcType="VARCHAR" property="className" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  
+  <select id="findClasses" resultMap="BaseResultMap" parameterType="cc.mrbird.web.domain.Class">
+  		select u.class_id ,u.grade_id,u.class_name,u.create_time from t_class u
+  		where 1=1
+  		<if test="className != null and className != ''">
+        	AND u.class_name like concat(concat('%',#{className,jdbcType=VARCHAR}),'%')
+	    </if>
+	    <if test="classId != null and classId != ''">
+	        AND d.class_id = #{classId}
+	    </if>
+  		<if test="gradeId != null and gradeId != ''">
+			AND d.grade_id = #{gradeId}
+	    </if>
+	    <!--
+	    <if test="status != null and status != ''">
+	        AND u.status = #{status}
+	    </if>-->
+  		order by u.class_id
+  </select>
+  
+</mapper>
