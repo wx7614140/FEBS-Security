@@ -9,8 +9,8 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/febs_security?useUnicode=true&characterEncoding=utf8
-    username: root
-    password: 111111
+    username: mrdird
+    password: 123456
     driver-class-name: com.mysql.jdbc.Driver
     hikari:
       minimum-idle: 5
@@ -32,7 +32,7 @@ spring:
 
   # redis配置，默认没有密码
   redis:
-    host: 127.0.0.1
+    host: 192.168.1.10
     port: 6379
     password:
     jedis:
@@ -52,6 +52,11 @@ spring:
   messages:
     encoding: utf-8
     basename: i18n/messages
+ # logging
+logging:
+  level:
+    com.mrbird.web.dao: debug
+
 # spring boot admin配置开始
 #  boot:
 #    admin:
@@ -86,10 +91,10 @@ jasypt:
 
 # mybatis配置
 mybatis:
-  mapper-locations: classpath:mapper/system/*.xml,classpath:mapper/quartz/*.xml
+  mapper-locations: classpath:mapper/system/*.xml,classpath:mapper/quartz/*.xml,classpath:mapper/web/*.xml
   configuration:
     jdbc-type-for-null: null
-  type-aliases-package: cc.mrbird.system.domain,cc.mrbird.quartz.domain
+  type-aliases-package: cc.mrbird.system.domain,cc.mrbird.quartz.domain,cc.mrbird.web.domain
 
 # 通用 mapper插件配置
 mapper:

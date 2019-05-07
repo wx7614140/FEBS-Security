@@ -35,11 +35,6 @@ public class ClassesServiceImpl extends BaseService<Class> implements ClassesSer
 			if (clazz.getGradeId()!=null) {
 				example.createCriteria().andCondition("grade_id=", clazz.getGradeId());
 			}
-			if (StringUtils.isNotBlank(clazz.getOderCloumn())) {
-				example.setOrderByClause(clazz.getOderCloumn()+clazz.isAsc()==null?"":clazz.isAsc()?" ASC":" DESC");
-			}else {
-				example.setOrderByClause("class_id");
-			}
 			return this.selectByExample(example);
 		} catch (Exception e) {
 			log.error("获取班级列表失败", e);

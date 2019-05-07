@@ -1,7 +1,6 @@
 package cc.mrbird.web.domain;
 
 import cc.mrbird.common.annotation.ExportConfig;
-import cc.mrbird.web.domain.BaseDomain;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -11,7 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "t_class")
-public class Class extends BaseDomain implements Serializable {
+public class Class implements Serializable {
     @Id
     @GeneratedValue(generator = "JDBC")
     @Column(name = "CLASS_ID")

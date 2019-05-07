@@ -11,11 +11,12 @@ $(function() {
         uniqueId: "classId",
         queryParams: function (params) {
             return {
+                alias:'u',
                 pageSize: params.limit||10,
                 pageNum: params.offset / params.limit + 1,
                 className: $classTableForm.find("input[name='className']").val().trim(),
-                oderCloumn: params.sort,      //排序列名
-                asc: params.order=='asc' //排位命令（desc，asc）
+                sortColumn: params.sort,      //排序列名
+                order: params.order //排位命令（desc，asc）
                 /* gradeId: $classTableForm.find("select[name='gradeId']").val(),
                  status: $classTableForm.find("select[name='status']").val()*/
             };
