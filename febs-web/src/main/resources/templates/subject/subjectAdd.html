@@ -1,0 +1,77 @@
+<div class="modal fade" id="subject-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="subject-add-modal-title">新增课程</h3>
+            </div>
+            <div class="modal-body">
+                <form id="subject-add-form">
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	课程名称：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control">
+                                    <input type="text" name="oldName" hidden class="form-control">
+                                    <input type="text" name="id" hidden class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	年级：
+					            </span>
+                                <div class="form-group">
+                                    <select  name="gradeId" class="form-control">
+                                        <optgroup label="小学">
+                                        <option value="1">一年级</option>
+                                        <option value="2">二年级</option>
+                                        <option value="3">三年级</option>
+                                        <option value="4">四年级</option>
+                                        <option value="5">五年级</option>
+                                        <option value="6">六年级</option>
+                                        </optgroup>
+                                        <optgroup label="初中">
+                                            <option value="7">初一</option>
+                                            <option value="8">初二</option>
+                                            <option value="9">初三</option>
+                                        </optgroup>
+                                        <optgroup label="高中">
+                                            <option value="7">高一</option>
+                                            <option value="8">高二</option>
+                                            <option value="9">高三</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	备注：
+					            </span>
+                                <div class="form-group">
+                                    <textarea  name="remarks" class="form-control">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-save" id="subject-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-secondary btn-close">关闭</button>
+                <button class="btn-hide"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-th-src="@{js/app/subject/subjectAdd.js}"></script>

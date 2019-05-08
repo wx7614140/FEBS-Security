@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.web.dao.SubjectMapper">
+  <resultMap id="BaseResultMap" type="cc.mrbird.web.domain.Subject">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="GRADE_ID" jdbcType="INTEGER" property="gradeId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+	  <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+	  <result column="DEL_FALG" jdbcType="INTEGER" property="delFlag" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+	  <result column="CREATE_BY" jdbcType="INTEGER" property="createBy" />
+	  <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+	  <result column="UPDATE_BY" jdbcType="INTEGER" property="updateBy" />
+  </resultMap>
+  
+  <select id="findSubjects" resultMap="BaseResultMap" parameterType="cc.mrbird.web.domain.Subject">
+  		select u.id ,u.grade_id,u.name,u.remarks,u.del_flag,u.create_by,u.create_date,u.update_date,u.update_date from t_subject u
+  		where 1=1
+  		<if test="name != null and name != ''">
+        	AND u.name like concat(concat('%',#{name,jdbcType=VARCHAR}),'%')
+	    </if>
+	    <if test="id != null and id != ''">
+	        AND d.class_id = #{classId}
+	    </if>
+  		<if test="gradeId != null and gradeId != ''">
+			AND d.grade_id = #{gradeId}
+	    </if>
+  		order by u.id
+  </select>
+  
+</mapper>
