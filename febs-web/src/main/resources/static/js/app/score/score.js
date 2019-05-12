@@ -1,7 +1,7 @@
 $(function() {
-    var $subjectTableForm=$(".subject-table-form")
+    var $scoreTableForm=$(".score-table-form")
     var setting = {
-        url: ctx + 'subject/list',
+        url: ctx + 'score/list',
         method:"post",
         pageNum: 1,
         pageSize: 10,
@@ -15,11 +15,9 @@ $(function() {
                 alias:'u',
                 pageSize: params.limit||10,
                 pageNum: params.offset / params.limit + 1,
-                name: $subjectTableForm.find("input[name='name']").val().trim(),
+                name: $scoreTableForm.find("input[name='name']").val().trim(),
                 sortColumn: params.sort,      //排序列名
                 order: params.order //排位命令（desc，asc）
-                /* gradeId: $subjectTableForm.find("select[name='gradeId']").val(),
-                 status: $subjectTableForm.find("select[name='status']").val()*/
             };
         },
         columns: [{
@@ -32,18 +30,23 @@ $(function() {
                 sortable: true
             },
             {
-                title: '名称',
-                field: 'name',
+                title: '学生',
+                field: 'stuId',
+                sortable: true
+            },
+            {
+                title: '课程',
+                field: 'subId',
+                sortable: true
+            },
+
+            {   title: '分数',
+                field: 'score',
                 sortable: true
             },
             {
                 title: '备注',
                 field: 'remarks',
-                sortable: true
-            },
-            {
-                title: '年级',
-                field: 'gradeId',
                 sortable: true
             },
             {
@@ -68,23 +71,23 @@ $(function() {
         ]
     };
 
-    $MB.initTable('subjectTable', setting);
+    $MB.initTable('scoreTable', setting);
 });
 
 function search() {
-    $MB.refreshTable('subjectTable');
+    $MB.refreshTable('scoreTable');
 }
 
 function refresh() {
-    $(".subject-table-form")[0].reset();
+    $(".score-table-form")[0].reset();
     search();
 }
 
-function deleteSubjects() {
-    var ids = $("#subjectTable").bootstrapTable("getSelections");
+function deleteScores() {
+    var ids = $("#scoreTable").bootstrapTable("getSelections");
     var ids_arr = "";
     if (!ids.length) {
-        $MB.n_warning("请勾选需要删除的课程！");
+        $MB.n_warning("请勾选需要删除的分数！");
         return;
     }
     for (var i = 0; i < ids.length; i++) {
@@ -92,10 +95,10 @@ function deleteSubjects() {
         if (i !== (ids.length - 1)) ids_arr += ",";
     }
     $MB.confirm({
-        text: "确定删除选中课程？",
+        text: "确定删除选中分数？",
         confirmButtonText: "确定删除"
     }, function() {
-        $.post(ctx + 'subject/delete', { "ids": ids_arr }, function(r) {
+        $.post(ctx + 'score/delete', { "ids": ids_arr }, function(r) {
             if (r.code === 0) {
                 $MB.n_success(r.msg);
                 refresh();
@@ -106,8 +109,8 @@ function deleteSubjects() {
     });
 }
 
-function exportClassExcel(){
-    $.post(ctx+"subject/excel",$(".subject-table-form").serialize(),function(r){
+function exportScoreExcel(){
+    $.post(ctx+"score/excel",$(".score-table-form").serialize(),function(r){
         if (r.code === 0) {
             window.location.href = "file/download?fileName=" + r.msg + "&delete=" + true;
         } else {
@@ -116,8 +119,8 @@ function exportClassExcel(){
     });
 }
 
-function exportClassCsv(){
-    $.post(ctx+"subject/csv",$(".subject-table-form").serialize(),function(r){
+function exportScoreCsv(){
+    $.post(ctx+"score/csv",$(".score-table-form").serialize(),function(r){
         if (r.code === 0) {
             window.location.href = "file/download?fileName=" + r.msg + "&delete=" + true;
         } else {

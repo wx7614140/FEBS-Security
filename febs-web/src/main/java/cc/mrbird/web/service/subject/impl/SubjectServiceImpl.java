@@ -37,7 +37,7 @@ public class SubjectServiceImpl extends BaseService<Subject> implements SubjectS
 			}
 			return this.selectByExample(example);
 		} catch (Exception e) {
-			log.error("获取课程列表失败", e);
+			log.error("获取分数列表失败", e);
 			return new ArrayList<>();
 		}
 
@@ -72,7 +72,7 @@ public class SubjectServiceImpl extends BaseService<Subject> implements SubjectS
 	@Transactional
 	public void deleteSubjects(String ids) {
 		List<String> list = Arrays.asList(ids.split(","));
-		this.batchDelete(list, "ids", Subject.class);
+		this.batchDelete(list, "id", Subject.class);
 	}
 
 	@Override

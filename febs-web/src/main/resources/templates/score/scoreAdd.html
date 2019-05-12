@@ -1,0 +1,72 @@
+<div class="modal fade" id="score-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="score-add-modal-title">新增分数</h3>
+            </div>
+            <div class="modal-body">
+                <form id="score-add-form">
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	学生：
+					            </span>
+                                <div class="form-group">
+                                    <select  id="stuId" name="stuId" class="js-example-basic-single form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	课程：
+					            </span>
+                                <div class="form-group">
+                                    <select  id="subId" name="subId" class="js-example-basic-single form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	分数：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="score" class="form-control">
+                                    <input type="text" name="id" hidden class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	备注：
+					            </span>
+                                <div class="form-group">
+                                    <textarea  name="remarks" class="form-control">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-save" id="score-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-secondary btn-close">关闭</button>
+                <button class="btn-hide"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-th-src="@{js/app/score/scoreAdd.js}"></script>

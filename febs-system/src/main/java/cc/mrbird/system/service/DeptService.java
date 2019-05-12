@@ -12,7 +12,7 @@ public interface DeptService extends IService<Dept> {
 
 	List<Dept> findAllDepts(Dept dept);
 
-	Dept findByName(String deptName);
+	Dept findByName(String deptName,String parentId);
 
 	Dept findById(Long deptId);
 	

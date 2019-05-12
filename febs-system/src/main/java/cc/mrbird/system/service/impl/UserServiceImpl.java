@@ -8,6 +8,7 @@ import cc.mrbird.system.domain.UserRole;
 import cc.mrbird.system.domain.UserWithRole;
 import cc.mrbird.system.service.UserRoleService;
 import cc.mrbird.system.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,6 @@ public class UserServiceImpl extends BaseService<MyUser> implements UserService 
         List<MyUser> list = this.selectByExample(example);
         return list.isEmpty() ? null : list.get(0);
     }
-
     @Autowired
     private UserMapper userMapper;
 

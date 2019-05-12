@@ -35,7 +35,10 @@ $(function () {
     $("#dept-add .btn-close").click(function () {
         closeModal();
     });
-
+    $('#deptTree').on("activate_node.jstree",function(){
+        $("input[name='deptName']").removeData("previousValue");
+        $("input[name='deptName']")[0].focus();
+    })
 });
 
 function closeModal() {
@@ -58,12 +61,17 @@ function validateRule() {
                     url: "dept/checkDeptName",
                     type: "get",
                     dataType: "json",
+                    cache :false,
                     data: {
                         deptName: function () {
                             return $("input[name='deptName']").val().trim();
                         },
                         oldDeptName: function () {
                             return $("input[name='oldDeptName']").val().trim();
+                        },
+                        parentId: function () {
+                            getDept();
+                            return $("input[name='parentId']").val().trim();
                         }
                     }
                 }

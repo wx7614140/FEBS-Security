@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.web.dao.ScoreMapper">
+  <resultMap id="BaseResultMap" type="cc.mrbird.web.domain.Score">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SCORE" jdbcType="INTEGER" property="score" />
+    <result column="STU_ID" jdbcType="INTEGER" property="stuId" />
+	  <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+	  <result column="DEL_FALG" jdbcType="INTEGER" property="delFlag" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+	  <result column="CREATE_BY" jdbcType="INTEGER" property="createBy" />
+	  <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+	  <result column="UPDATE_BY" jdbcType="INTEGER" property="updateBy" />
+	  <result column="SUB_ID" jdbcType="INTEGER" property="subId" />
+  </resultMap>
+  
+  <select id="findScores" resultMap="BaseResultMap" parameterType="cc.mrbird.web.domain.Score">
+  		select u.id ,u.score,u.stu_id,u.del_flag,u.create_by,u.create_date,u.update_date,u.update_date,u.sub_id from t_score u
+  		where 1=1
+  		<if test="score != null and score != ''">
+        	AND u.name like concat(concat('%',#{score,jdbcType=VARCHAR}),'%')
+	    </if>
+	    <if test="id != null and id != ''">
+	        AND d.class_id = #{classId}
+	    </if>
+  		<if test="subId != null and subId != ''">
+			AND d.sub_id = #{subId}
+	    </if>
+  		order by u.id
+  </select>
+  
+</mapper>

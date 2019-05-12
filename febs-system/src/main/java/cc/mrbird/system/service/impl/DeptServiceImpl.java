@@ -60,9 +60,12 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 	}
 
 	@Override
-	public Dept findByName(String deptName) {
+	public Dept findByName(String deptName,String parentId) {
 		Example example = new Example(Dept.class);
-		example.createCriteria().andCondition("lower(dept_name) =", deptName.toLowerCase());
+		Example.Criteria cri=example.createCriteria().andCondition("lower(dept_name) =", deptName.toLowerCase()).andCondition("parent_id =", parentId);
+		if(StringUtils.isNotBlank(parentId)){
+			cri.andCondition("parent_id =", parentId);
+		}
 		List<Dept> list = this.selectByExample(example);
 		return list.isEmpty() ? null : list.get(0);
 	}

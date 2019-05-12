@@ -16,7 +16,6 @@ public interface UserService extends IService<MyUser> {
     MyUser findByName(String userName);
 
     List<MyUser> findUserWithDept(MyUser user);
-
     void registUser(MyUser user);
 
     void updateTheme(String theme, String userName);
