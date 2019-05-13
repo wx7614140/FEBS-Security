@@ -4,10 +4,12 @@ import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.utils.FileUtils;
+import cc.mrbird.system.domain.MyUser;
+import cc.mrbird.system.domain.UserWithRole;
+import cc.mrbird.system.service.UserService;
 import cc.mrbird.web.controller.base.BaseController;
 import cc.mrbird.web.domain.Score;
 import cc.mrbird.web.service.score.ScoreService;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class ScoreController extends BaseController {
 
     @Autowired
     private ScoreService scoreService;
+    @Autowired
+    private UserService userService;
     @Log("获取分数信息")
     @RequestMapping("score")
     @PreAuthorize("hasAuthority('score:list')")
@@ -51,6 +55,14 @@ public class ScoreController extends BaseController {
     @PreAuthorize("hasAuthority('score:list')")
     @ResponseBody
     public Map<String, Object> scoreList(QueryRequest request, Score score) {
+        MyUser currentUser=this.getCurrentUser();
+        List<UserWithRole> roles= userService.findUserWithRole(currentUser.getUserId());
+        if(roles.get(0).getRoleName().equalsIgnoreCase("教师角色")){
+            score.setDeptId(roles.get(0).getDeptId());
+        }
+        if(roles.get(0).getRoleName().equalsIgnoreCase("学生角色")){
+            score.setStuId(roles.get(0).getUserId());
+        }
             return super.selectByPageNumSize(request, () -> this.scoreService.findScores(score));
     }
 

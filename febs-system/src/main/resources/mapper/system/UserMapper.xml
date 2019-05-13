@@ -44,8 +44,9 @@
     
   <select id="findUserWithRole" resultType="userWithRole">
 		select u.user_id userId,u.username,u.dept_id deptId,u.email,u.mobile,
-		u.status,u.ssex,ur.role_id roleId from t_user u
+		u.status,u.ssex,ur.role_id roleId,ro.role_name roleName from t_user u
 		left join t_user_role ur on (u.user_id = ur.user_id)
+		left join t_role ro on (ur.role_id=ro.role_id)
 		where u.user_id = #{userId}
   </select>
   

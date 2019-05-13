@@ -205,4 +205,8 @@ public class UserServiceImpl extends BaseService<MyUser> implements UserService 
         user.setMobile("");
         this.userMapper.updateByExampleSelective(user, example);
     }
+    @Override
+    public List<UserWithRole> findUserWithRole(Long userId){
+        return this.userMapper.findUserWithRole(userId);
+    }
 }

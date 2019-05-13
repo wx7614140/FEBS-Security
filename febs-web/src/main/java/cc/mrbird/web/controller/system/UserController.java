@@ -6,6 +6,11 @@ import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.utils.FileUtils;
 import cc.mrbird.system.domain.MyUser;
+import cc.mrbird.system.domain.Role;
+import cc.mrbird.system.domain.UserWithRole;
+import cc.mrbird.system.service.DeptService;
+import cc.mrbird.system.service.RoleService;
+import cc.mrbird.system.service.UserRoleService;
 import cc.mrbird.system.service.UserService;
 import cc.mrbird.web.controller.base.BaseController;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +36,8 @@ public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private UserRoleService uerRoleService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -70,7 +76,12 @@ public class UserController extends BaseController {
     public Map<String, Object> userList(QueryRequest request, MyUser user) {
         return super.selectByPageNumSize(request, () -> this.userService.findUserWithDept(user));
     }
-
+    @Log("获取学生信息")
+    @RequestMapping("user/studentlist")
+    @ResponseBody
+    public Map<String, Object> studentList(QueryRequest request, MyUser user) {
+        return super.selectByPageNumSize(request, () -> this.userService.findUserWithDept(user));
+    }
     @RequestMapping(FebsConstant.FEBS_REGIST_URL)
     @ResponseBody
     public ResponseBo regist(MyUser user) {

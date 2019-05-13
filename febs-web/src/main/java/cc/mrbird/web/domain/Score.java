@@ -2,10 +2,7 @@ package cc.mrbird.web.domain;
 
 import cc.mrbird.common.annotation.ExportConfig;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 @Table(name = "t_score")
@@ -113,5 +110,54 @@ public class Score implements Serializable {
 
     public void setSubId(Long subId) {
         this.subId = subId;
+    }
+    @Transient
+    private String username;
+    @Transient
+    private String subname;
+    @Transient
+    private Long deptId;
+    @Transient
+    private String creator;
+    @Transient
+    private String updator;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getSubname() {
+        return subname;
+    }
+
+    public void setSubname(String subname) {
+        this.subname = subname;
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getUpdator() {
+        return updator;
+    }
+
+    public void setUpdator(String updator) {
+        this.updator = updator;
     }
 }

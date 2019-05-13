@@ -18,17 +18,34 @@
   </resultMap>
   
   <select id="findScores" resultMap="BaseResultMap" parameterType="cc.mrbird.web.domain.Score">
-  		select u.id ,u.score,u.stu_id,u.del_flag,u.create_by,u.create_date,u.update_date,u.update_date,u.sub_id from t_score u
+  		select u.id ,u.score,u.stu_id,u.del_flag,u.create_by,u.create_date createDate,u.update_date updateDate,u.update_date,u.sub_id,us.username username,su.name subname,de.dept_id deptId,crea.username creator,upd.username updator from t_score u
+  		left join t_user us on us.user_id=u.stu_id
+	  	left join t_dept de on de.dept_id=us.dept_id
+	  	left join t_subject su on su.id=u.sub_id
+	  	left join t_user crea on crea.user_id=u.create_by
+	  	left join t_user upd on upd.user_id=u.update_by
   		where 1=1
   		<if test="score != null and score != ''">
-        	AND u.name like concat(concat('%',#{score,jdbcType=VARCHAR}),'%')
+        	AND u.score = #{score}
 	    </if>
+	  	<if test="stuId != null and stuId != ''">
+		  	AND u.stu_id = #{stuId}
+		</if>
 	    <if test="id != null and id != ''">
 	        AND d.class_id = #{classId}
 	    </if>
   		<if test="subId != null and subId != ''">
 			AND d.sub_id = #{subId}
 	    </if>
+	  	<if test="deptId != null and deptId != ''">
+		  	AND (de.dept_id = #{deptId} OR de.parent_id = #{deptId})
+	  	</if>
+	  	<if test="username != null and username != ''">
+			AND us.username  like concat(concat('%',#{username,jdbcType=VARCHAR}),'%')
+	  	</if>
+	  	<if test="subname != null and subname != ''">
+			AND su.name  like concat(concat('%',#{subname,jdbcType=VARCHAR}),'%')
+		</if>
   		order by u.id
   </select>
   

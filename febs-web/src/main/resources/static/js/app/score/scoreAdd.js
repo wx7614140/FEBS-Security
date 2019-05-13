@@ -36,7 +36,7 @@ $(function () {
         language: "zh-CN",
         inputMessage: "请选择学生",
         ajax: {
-            url: "user/list",
+            url: "user/studentlist",
                 dataType : 'json',
             delay: 250,
             data: function(params){

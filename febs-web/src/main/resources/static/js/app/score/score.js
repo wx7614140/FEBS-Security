@@ -31,12 +31,12 @@ $(function() {
             },
             {
                 title: '学生',
-                field: 'stuId',
+                field: 'username',
                 sortable: true
             },
             {
                 title: '课程',
-                field: 'subId',
+                field: 'subname',
                 sortable: true
             },
 
@@ -56,7 +56,7 @@ $(function() {
             },
             {
                 title: '创建人',
-                field: 'createBy',
+                field: 'creator',
                 sortable: true
             },{
                 title: '修改时间',
@@ -65,7 +65,7 @@ $(function() {
             },
             {
                 title: '修改人',
-                field: 'updateBy',
+                field: 'updator',
                 sortable: true
             }
         ]
