@@ -135,7 +135,7 @@ public class ScoreController extends BaseController {
     public ResponseBo scoreExcel(Score score) {
         try {
             List<Score> list = this.scoreService.findAllScores(score);
-            return FileUtils.createExcelByPOIKit("分数表", list, Class.class);
+            return FileUtils.createExcelByPOIKit("分数表", list, Score.class);
         } catch (Exception e) {
             log.error("导出分数信息Excel失败", e);
             return ResponseBo.error("导出Excel失败，请联系网站管理员！");

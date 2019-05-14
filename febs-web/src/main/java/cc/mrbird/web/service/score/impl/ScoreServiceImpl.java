@@ -28,14 +28,7 @@ public class ScoreServiceImpl extends BaseService<Score> implements ScoreService
 	@Override
 	public List<Score> findAllScores(Score score) {
 		try {
-			Example example = new Example(Subject.class);
-			if (score.getScore()!=null) {
-				example.createCriteria().andCondition("score=", score.getScore());
-			}
-			if (score.getSubId()!=null) {
-				example.createCriteria().andCondition("sub_id=", score.getSubId());
-			}
-			return this.selectByExample(example);
+			return this.scoreMapper.findScores(score);
 		} catch (Exception e) {
 			log.error("获取课程列表失败", e);
 			return new ArrayList<>();

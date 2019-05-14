@@ -18,7 +18,7 @@ public class Score implements Serializable {
     private Integer score;
 
     @Column(name = "STU_ID")
-    @ExportConfig(value = "学生")
+   // @ExportConfig(value = "学生")
     private Long stuId;
 
     @Column(name = "DEL_FLAG")
@@ -37,7 +37,7 @@ public class Score implements Serializable {
     private Long updateBy;
 
     @Column(name = "SUB_ID")
-    @ExportConfig(value = "课程")
+    //@ExportConfig(value = "课程")
     private Long subId;
 
     public Long getId() {
@@ -112,8 +112,10 @@ public class Score implements Serializable {
         this.subId = subId;
     }
     @Transient
+    @ExportConfig(value = "学生")
     private String username;
     @Transient
+    @ExportConfig(value = "课程")
     private String subname;
     @Transient
     private Long deptId;
