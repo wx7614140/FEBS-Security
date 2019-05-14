@@ -2,7 +2,7 @@ $(function() {
     var $subjectTableForm=$(".subject-table-form")
     var setting = {
         url: ctx + 'subject/list',
-        method:"post",
+        method:"get",
         pageNum: 1,
         pageSize: 10,
         pagination: true,
