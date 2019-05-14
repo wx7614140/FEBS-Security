@@ -2,7 +2,7 @@ $(function() {
     var $scoreTableForm=$(".score-table-form")
     var setting = {
         url: ctx + 'score/list',
-        method:"post",
+        method:"get",
         pageNum: 1,
         pageSize: 10,
         pagination: true,
@@ -15,7 +15,7 @@ $(function() {
                 alias:'u',
                 pageSize: params.limit||10,
                 pageNum: params.offset / params.limit + 1,
-                name: $scoreTableForm.find("input[name='name']").val().trim(),
+                username: $scoreTableForm.find("input[name='username']").val().trim(),
                 sortColumn: params.sort,      //排序列名
                 order: params.order //排位命令（desc，asc）
             };

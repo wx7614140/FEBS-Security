@@ -63,7 +63,7 @@ public class ScoreController extends BaseController {
         if(roles.get(0).getRoleName().equalsIgnoreCase("学生角色")){
             score.setStuId(roles.get(0).getUserId());
         }
-            return super.selectByPageNumSize(request, () -> this.scoreService.findScores(score));
+        return super.selectByPageNumSize(request, () -> this.scoreService.findScores(score));
     }
 
     /**@RequestMapping("score/checkScoreName")
