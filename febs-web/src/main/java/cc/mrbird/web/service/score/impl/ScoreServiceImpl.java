@@ -25,16 +25,7 @@ public class ScoreServiceImpl extends BaseService<Score> implements ScoreService
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private ScoreMapper scoreMapper;
-	@Override
-	public List<Score> findAllScores(Score score) {
-		try {
-			return this.scoreMapper.findScores(score);
-		} catch (Exception e) {
-			log.error("获取课程列表失败", e);
-			return new ArrayList<>();
-		}
 
-	}
 	@Override
 	public List<Score> findScores(Score score) {
 		try {

@@ -2,10 +2,7 @@ package cc.mrbird.web.domain;
 
 import cc.mrbird.common.annotation.ExportConfig;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 @Table(name = "t_subject")
@@ -17,29 +14,27 @@ public class Subject implements Serializable {
     private Long id;
 
     @Column(name = "GRADE_ID")
-    @ExportConfig(value = "年级")
+    @ExportConfig(value = "年级",convert = "s:1=一年级,2=二年级,3=三年级,4=四年级,5=五年级,6=六年级,7=初一,8=初二,9=初三,10=高一,11=高二,12=高三")
     private Long gradeId;
 
     @Column(name = "NAME")
-    @ExportConfig(value = "班级名称")
+    @ExportConfig(value = "名称")
     private String name;
     @Column(name = "REMARKS")
     @ExportConfig(value = "备注")
     private String remarks;
     @Column(name = "DEL_FLAG")
-    @ExportConfig(value = "备注")
     private Integer delFlag;
     @Column(name = "CREATE_DATE")
     @ExportConfig(value = "创建时间", convert = "c:cc.mrbird.common.utils.poi.convert.TimeConvert")
     private Date createDate;
     @Column(name = "CREATE_BY")
-    @ExportConfig(value = "创建人")
+
     private Long createBy;
     @Column(name = "UPDATE_DATE")
     @ExportConfig(value = "修改时间", convert = "c:cc.mrbird.common.utils.poi.convert.TimeConvert")
     private Date updateDate;
     @Column(name = "UPDATE_BY")
-    @ExportConfig(value = "修改人")
     private Long updateBy;
 
     public Long getId() {
@@ -112,5 +107,27 @@ public class Subject implements Serializable {
 
     public void setUpdateBy(Long updateBy) {
         this.updateBy = updateBy;
+    }
+    @Transient
+    @ExportConfig(value = "创建人")
+    private String creator;
+    @Transient
+    @ExportConfig(value = "修改人")
+    private String updator;
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getUpdator() {
+        return updator;
+    }
+
+    public void setUpdator(String updator) {
+        this.updator = updator;
     }
 }

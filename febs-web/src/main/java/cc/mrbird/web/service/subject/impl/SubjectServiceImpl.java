@@ -25,23 +25,6 @@ public class SubjectServiceImpl extends BaseService<Subject> implements SubjectS
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private SubjectMapper subjectMapper;
-	@Override
-	public List<Subject> findAllSubjects(Subject subject) {
-		try {
-			Example example = new Example(Subject.class);
-			if (StringUtils.isNotBlank(subject.getName())) {
-				example.createCriteria().andCondition("name=", subject.getName());
-			}
-			if (subject.getGradeId()!=null) {
-				example.createCriteria().andCondition("grade_id=", subject.getGradeId());
-			}
-			return this.selectByExample(example);
-		} catch (Exception e) {
-			log.error("获取分数列表失败", e);
-			return new ArrayList<>();
-		}
-
-	}
 
 	@Override
 	public List<Subject> findSubjects(Subject subject) {

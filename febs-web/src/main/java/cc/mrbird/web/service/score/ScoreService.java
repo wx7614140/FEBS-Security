@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface ScoreService extends IService<Score> {
 
-	List<Score> findAllScores(Score score);
 
 	List<Score> findScores(Score score);
 

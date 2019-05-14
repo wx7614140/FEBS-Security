@@ -134,7 +134,7 @@ public class ScoreController extends BaseController {
     @ResponseBody
     public ResponseBo scoreExcel(Score score) {
         try {
-            List<Score> list = this.scoreService.findAllScores(score);
+            List<Score> list = this.scoreService.findScores(score);
             return FileUtils.createExcelByPOIKit("分数表", list, Score.class);
         } catch (Exception e) {
             log.error("导出分数信息Excel失败", e);
@@ -146,7 +146,7 @@ public class ScoreController extends BaseController {
     @ResponseBody
     public ResponseBo scoreCsv(Score score) {
         try {
-            List<Score> list = this.scoreService.findAllScores(score);
+            List<Score> list = this.scoreService.findScores(score);
             return FileUtils.createCsv("分数表", list, Score.class);
         } catch (Exception e) {
             log.error("获取分数信息Csv失败", e);

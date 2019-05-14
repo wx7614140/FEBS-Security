@@ -44,7 +44,22 @@ $(function() {
             {
                 title: '年级',
                 field: 'gradeId',
-                sortable: true
+                sortable: true,
+                formatter: function (value, row, index) {
+                    if (value === 1) return '一年级';
+                    else if (value === 2) return '二年级';
+                    else if (value === 3) return '三年级';
+                    else if (value === 4) return '四年级';
+                    else if (value === 5) return '五年级';
+                    else if (value === 6) return '六年级';
+                    else if (value === 7) return '初一';
+                    else if (value === 8) return '初二';
+                    else if (value === 9) return '初三';
+                    else if (value === 10) return '高一';
+                    else if (value === 11) return '高二';
+                    else if (value === 12) return '高三';
+                    else return '未知';
+                }
             },
             {
                 title: '创建时间',
@@ -53,7 +68,7 @@ $(function() {
             },
             {
                 title: '创建人',
-                field: 'createBy',
+                field: 'creator',
                 sortable: true
             },{
                 title: '修改时间',
@@ -62,7 +77,7 @@ $(function() {
             },
             {
                 title: '修改人',
-                field: 'updateBy',
+                field: 'updator',
                 sortable: true
             }
         ]
@@ -106,7 +121,7 @@ function deleteSubjects() {
     });
 }
 
-function exportClassExcel(){
+function exportSubjectExcel(){
     $.post(ctx+"subject/excel",$(".subject-table-form").serialize(),function(r){
         if (r.code === 0) {
             window.location.href = "file/download?fileName=" + r.msg + "&delete=" + true;
@@ -116,7 +131,7 @@ function exportClassExcel(){
     });
 }
 
-function exportClassCsv(){
+function exportSubjectCsv(){
     $.post(ctx+"subject/csv",$(".subject-table-form").serialize(),function(r){
         if (r.code === 0) {
             window.location.href = "file/download?fileName=" + r.msg + "&delete=" + true;

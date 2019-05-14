@@ -7,7 +7,6 @@ import java.util.List;
 public interface SubjectService extends IService<Subject> {
 
 
-	List<Subject> findAllSubjects(Subject subject);
 	List<Subject> findSubjects(Subject subject);
 	Subject findByName(String name);
 

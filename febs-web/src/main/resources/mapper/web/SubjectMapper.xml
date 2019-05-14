@@ -17,7 +17,9 @@
   </resultMap>
   
   <select id="findSubjects" resultMap="BaseResultMap" parameterType="cc.mrbird.web.domain.Subject">
-  		select u.id ,u.grade_id,u.name,u.remarks,u.del_flag,u.create_by,u.create_date,u.update_date,u.update_date from t_subject u
+  		select u.id ,u.grade_id,u.name,u.remarks,u.del_flag,u.create_by,u.create_date createDate,u.update_date updateDate,u.update_by,cr.username creator,up.username updator from t_subject u
+  		left join t_user cr on cr.user_id=u.create_by
+	  	left join t_user up on up.user_id=u.update_by
   		where 1=1
   		<if test="name != null and name != ''">
         	AND u.name like concat(concat('%',#{name,jdbcType=VARCHAR}),'%')

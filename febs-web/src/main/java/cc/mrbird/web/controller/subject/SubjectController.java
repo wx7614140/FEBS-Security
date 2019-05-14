@@ -113,8 +113,8 @@ public class SubjectController extends BaseController {
     @ResponseBody
     public ResponseBo subjectExcel(Subject subject) {
         try {
-            List<Subject> list = this.subjectService.findAllSubjects(subject);
-            return FileUtils.createExcelByPOIKit("课程表", list, Class.class);
+            List<Subject> list = this.subjectService.findSubjects(subject);
+            return FileUtils.createExcelByPOIKit("课程表", list, Subject.class);
         } catch (Exception e) {
             log.error("导出课程信息Excel失败", e);
             return ResponseBo.error("导出Excel失败，请联系网站管理员！");
@@ -125,7 +125,7 @@ public class SubjectController extends BaseController {
     @ResponseBody
     public ResponseBo subjectCsv(Subject subject) {
         try {
-            List<Subject> list = this.subjectService.findAllSubjects(subject);
+            List<Subject> list = this.subjectService.findSubjects(subject);
             return FileUtils.createCsv("课程表", list, Subject.class);
         } catch (Exception e) {
             log.error("获取课程信息Csv失败", e);
