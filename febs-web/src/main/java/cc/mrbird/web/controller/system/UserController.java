@@ -80,6 +80,12 @@ public class UserController extends BaseController {
     @RequestMapping("user/studentlist")
     @ResponseBody
     public Map<String, Object> studentList(QueryRequest request, MyUser user) {
+        MyUser currentUser=this.getCurrentUser();
+        List<UserWithRole> roles= userService.findUserWithRole(currentUser.getUserId());
+        if(roles.get(0).getRoleName().equalsIgnoreCase("教师角色")){
+            user.setDeptId(roles.get(0).getDeptId());
+        }
+        user.setRoleName("学生角色");
         return super.selectByPageNumSize(request, () -> this.userService.findUserWithDept(user));
     }
     @RequestMapping(FebsConstant.FEBS_REGIST_URL)

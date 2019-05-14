@@ -53,7 +53,13 @@ public class SubjectController extends BaseController {
     public Map<String, Object> subjectList(QueryRequest request, Subject subject) {
             return super.selectByPageNumSize(request, () -> this.subjectService.findSubjects(subject));
     }
-
+    @Log("获取课程信息")
+    @RequestMapping("subject/alllist")
+    @ResponseBody
+    public Map<String, Object> subjectAllList(QueryRequest request, Subject subject) {
+        request.setPageSize(Integer.MAX_VALUE);
+        return super.selectByPageNumSize(request, () -> this.subjectService.findSubjects(subject));
+    }
     @RequestMapping("subject/checkSubjectName")
     @ResponseBody
     public boolean checkSubjectName(String name, String oldName) {

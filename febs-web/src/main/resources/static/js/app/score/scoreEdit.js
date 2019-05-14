@@ -16,8 +16,10 @@ function updateScore() {
             $form.modal();
             var score = r.msg;
             $("#score-add-modal-title").html('修改分数');
-            $form.find("input[name='score']").val(score.name);
+            $form.find("input[name='score']").val(score.score);
             $form.find("input[name='id']").val(score.id);
+            $form.find("select[name='stuId']").val(score.stuId);
+            $form.find("select[name='subId']").val(score.subId);
             $form.find("textarea[name='remarks']").val(score.remarks);
             $("#score-add-button").attr("name", "update");
         } else {

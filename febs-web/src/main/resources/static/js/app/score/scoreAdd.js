@@ -32,83 +32,69 @@ $(function () {
     $("#score-add .btn-close").click(function () {
         closeModal();
     });
-    $("#stuId").select2({
-        language: "zh-CN",
-        inputMessage: "请选择学生",
-        ajax: {
-            url: "user/studentlist",
-                dataType : 'json',
-            delay: 250,
-            data: function(params){
-                if(!params.page){
-                    params.page=1;
+    $.get(ctx +"user/studentlist", {},function(data){
+            var options;
+            for(var index=0;index<data.rows.length;index++){
+                options+="<option value='"+data.rows[index].userId+"'" ;
+                if($("#stuId").val()==data.rows[index].userId){
+                    options+=" selected ";
                 }
-                return {
-                    username : params.term, // 搜索框内输入的内容，传递到Java后端的parameter为username
-                    pageNum : params.page,// 第几页，分页哦
-                    pageSize : 5// 每页显示多少行
-                };
-            },
-            // 分页
-            processResults : function(data, params) {
-                var dataRows=[]
-                for(var i=0;i<data.rows.length;i++){
-                   var dataObj={};
-                    dataObj.text=data.rows[i].username;
-                    dataObj.id=data.rows[i].userId;
-                    dataRows.push(dataObj);
-                }
-                params.page = params.page || 1;
-                return {
-                    results : dataRows,// 后台返回的数据集
-                    pagination : {
-                        more : (params.page*5) < data.total// 总页数为10，那么1-9页的时候都可以下拉刷新
-                    }
-                };
-            },
-            cache : false
-        },
-        escapeMarkup : function(markup) {
-            return markup;
+                options+=">"+data.rows[index].username+"</option>";
+            }
+            $("#stuId").append(options);
         }
-    });
-    $("#subId").select2({
-        language: "zh-CN",
-        inputMessage: "请选择课程",
-        ajax: {
-            url: "subject/list",
-            dataType : 'json',
-            delay: 250,
-            data: function(params){
-                return {
-                    name : params.term, // 搜索框内输入的内容，传递到Java后端的parameter为username
-                    pageNum : params.page,// 第几页，分页哦
-                    pageSize : 5// 每页显示多少行
-                };
-            },
-            // 分页
-            processResults : function(data, params) {
-                var dataRows=[]
-                for(var i=0;i<data.rows.length;i++){
-                    var dataObj={};
-                    dataObj.text=data.rows[i].name;
-                    dataObj.id=data.rows[i].id;
-                    dataRows.push(dataObj);
+    );
+    $.get(ctx +"subject/alllist", {},function(data){
+            console.log(data);
+            var options;
+            for(var index=0;index<data.rows.length;index++){
+                options+="<option value='"+data.rows[index].id+"'" ;
+                if($("#sudId").val()==data.rows[index].id){
+                    options+=" selected ";
                 }
-                params.page = params.page || 1;
-                return {
-                    results : dataRows,// 后台返回的数据集
-                    pagination : {
-                        more : (params.page*5) < data.total// 总页数为10，那么1-9页的时候都可以下拉刷新
-                    }
-                };
-            },
-            cache : false
-        },
-        escapeMarkup : function(markup) {
-            return markup;
+                options+=">";
+                if(data.rows[index].gradeId==1){
+                    options+="一年级";
+                }
+                if(data.rows[index].gradeId==2){
+                    options+="二年级";
+                }
+                if(data.rows[index].gradeId==3){
+                    options+="三年级";
+                }
+                if(data.rows[index].gradeId==4){
+                    options+="四年级";
+                }
+                if(data.rows[index].gradeId==5){
+                    options+="五年级";
+                }
+                if(data.rows[index].gradeId==6){
+                    options+="六年级";
+                }
+                if(data.rows[index].gradeId==7){
+                    options+="初一";
+                }
+                if(data.rows[index].gradeId==8){
+                    options+="初二";
+                }
+                if(data.rows[index].gradeId==9){
+                    options+="初三";
+                }
+                if(data.rows[index].gradeId==10){
+                    options+="高一";
+                }
+                if(data.rows[index].gradeId==11){
+                    options+="高二";
+                }
+                if(data.rows[index].gradeId==11){
+                    options+="高三";
+                }
+
+                options+=data.rows[index].name+"</option>";
+            }
+            $("#subId").append(options);
         }
-    });
+    );
 });
 
 function closeModal() {

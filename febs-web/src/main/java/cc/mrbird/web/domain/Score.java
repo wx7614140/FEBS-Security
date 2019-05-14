@@ -39,6 +39,17 @@ public class Score implements Serializable {
     @Column(name = "SUB_ID")
     //@ExportConfig(value = "课程")
     private Long subId;
+    @Column(name = "REMARKS")
+    @ExportConfig(value = "备注")
+    private String remarks;
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 
     public Long getId() {
         return id;
