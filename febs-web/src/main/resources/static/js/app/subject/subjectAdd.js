@@ -32,7 +32,10 @@ $(function () {
     $("#subject-add .btn-close").click(function () {
         closeModal();
     });
-
+    $('#gradeId').on("change",function(){
+        $("input[name='name']").removeData("previousValue");
+        $("input[name='name']")[0].focus();
+    })
 });
 
 function closeModal() {
@@ -60,6 +63,9 @@ function validateRule() {
                         },
                         oldName: function () {
                             return $("input[name='oldName']").val().trim();
+                        },
+                        gradeId: function () {
+                            return $("select[name='gradeId']").val().trim();
                         }/*,
                         gradeId: function () {
                             return $("select[name='gradeId']").val();

@@ -16,6 +16,7 @@ $(function() {
                 pageSize: params.limit||10,
                 pageNum: params.offset / params.limit + 1,
                 username: $scoreTableForm.find("input[name='username']").val().trim(),
+                gradeId: $scoreTableForm.find("select[name='gradeId']").val().trim(),
                 sortColumn: params.sort,      //排序列名
                 order: params.order //排位命令（desc，asc）
             };
@@ -33,6 +34,26 @@ $(function() {
                 title: '学生',
                 field: 'username',
                 sortable: true
+            },
+            {
+                title: '年级',
+                field: 'gradeId',
+                sortable: true,
+                formatter: function (value, row, index) {
+                    if (value === 1) return '一年级';
+                    else if (value === 2) return '二年级';
+                    else if (value === 3) return '三年级';
+                    else if (value === 4) return '四年级';
+                    else if (value === 5) return '五年级';
+                    else if (value === 6) return '六年级';
+                    else if (value === 7) return '初一';
+                    else if (value === 8) return '初二';
+                    else if (value === 9) return '初三';
+                    else if (value === 10) return '高一';
+                    else if (value === 11) return '高二';
+                    else if (value === 12) return '高三';
+                    else return '未知';
+                }
             },
             {
                 title: '课程',

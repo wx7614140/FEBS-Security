@@ -134,6 +134,8 @@ public class Score implements Serializable {
     private String creator;
     @Transient
     private String updator;
+    @Transient
+    private Long gradeId;
     public String getUsername() {
         return username;
     }
@@ -172,5 +174,13 @@ public class Score implements Serializable {
 
     public void setUpdator(String updator) {
         this.updator = updator;
+    }
+
+    public Long getGradeId() {
+        return gradeId;
+    }
+
+    public void setGradeId(Long gradeId) {
+        this.gradeId = gradeId;
     }
 }

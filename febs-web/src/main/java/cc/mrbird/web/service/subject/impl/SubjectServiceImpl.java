@@ -37,9 +37,12 @@ public class SubjectServiceImpl extends BaseService<Subject> implements SubjectS
 	}
 
 	@Override
-	public Subject findByName(String name) {
+	public Subject findByName(String name,Long gradeId) {
 		Example example = new Example(Subject.class);
-		example.createCriteria().andCondition("lower(name) =", name.toLowerCase());
+		Example.Criteria c= example.createCriteria().andCondition("lower(name) =", name.toLowerCase());
+		if(gradeId!=null){
+			c.andCondition("grade_id=",gradeId);
+		}
 		List<Subject> list = this.selectByExample(example);
 		return list.isEmpty() ? null : list.get(0);
 	}

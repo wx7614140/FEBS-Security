@@ -62,11 +62,11 @@ public class SubjectController extends BaseController {
     }
     @RequestMapping("subject/checkSubjectName")
     @ResponseBody
-    public boolean checkSubjectName(String name, String oldName) {
+    public boolean checkSubjectName(String name, String oldName,Long gradeId) {
         if (StringUtils.isNotBlank(oldName) && StringUtils.equalsIgnoreCase(name, oldName)) {
             return true;
         }
-        Subject result = this.subjectService.findByName(name);
+        Subject result = this.subjectService.findByName(name,gradeId);
         return result == null;
     }
 

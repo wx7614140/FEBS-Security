@@ -8,7 +8,7 @@ public interface SubjectService extends IService<Subject> {
 
 
 	List<Subject> findSubjects(Subject subject);
-	Subject findByName(String name);
+	Subject findByName(String name,Long gradeId);
 
 	Subject findById(Long id);
 	

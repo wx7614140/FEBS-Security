@@ -18,7 +18,7 @@
   </resultMap>
   
   <select id="findScores" resultMap="BaseResultMap" parameterType="cc.mrbird.web.domain.Score">
-  		select u.id ,u.score,u.stu_id,u.del_flag,u.create_by,u.create_date createDate,u.update_date updateDate,u.update_date,u.sub_id,u.remarks,us.username username,su.name subname,de.dept_id deptId,crea.username creator,upd.username updator from t_score u
+  		select u.id ,u.score,u.stu_id,u.del_flag,u.create_by,u.create_date createDate,u.update_date updateDate,u.update_date,u.sub_id,u.remarks,us.username username,su.name subname,de.dept_id deptId,crea.username creator,upd.username updator,su.grade_id gradeId from t_score u
   		left join t_user us on us.user_id=u.stu_id
 	  	left join t_dept de on de.dept_id=us.dept_id
 	  	left join t_subject su on su.id=u.sub_id
@@ -39,6 +39,9 @@
 	    </if>
 	  	<if test="deptId != null and deptId != ''">
 		  	AND (de.dept_id = #{deptId} OR de.parent_id = #{deptId})
+	  	</if>
+	  	<if test="gradeId != null and gradeId != ''">
+		  	AND su.grade_id = #{gradeId}
 	  	</if>
 	  	<if test="username != null and username != ''">
 			AND us.username  like concat(concat('%',#{username,jdbcType=VARCHAR}),'%')
