@@ -45,7 +45,6 @@ $(function () {
         }
     );
     $.get(ctx +"subject/alllist", {},function(data){
-            console.log(data);
             var options;
             for(var index=0;index<data.rows.length;index++){
                 options+="<option value='"+data.rows[index].id+"'" ;
